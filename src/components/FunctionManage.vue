@@ -21,6 +21,8 @@
     </el-table>
 </template>
 <script>
+import axios from 'axios'
+
 export default {
   name: 'FunctionManage',
   props: {
@@ -59,6 +61,16 @@ export default {
               address: '上海市普陀区金沙江路 1518 弄'
           }]
       }
+  },
+
+  mounted() {
+      axios.get(
+        '/thinger/api/v1/faas/functions'
+    ).then((response) => {
+        console.log(response.data)
+    }).catch(function (error) {
+        console.log(error)
+    })
   }
 }
 </script>
