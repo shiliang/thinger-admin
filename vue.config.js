@@ -1,15 +1,16 @@
 module.exports = {
     devServer: {
         proxy: {
-            '/thinger': {
-                target:'http://10.211.55.8:10080',
+            '/thingerboot': {
+                target:'http://10.211.55.5:10078',
                 ws: true,
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/thinger': 'localhost:8080'
+                    '^/thingerboot': 'localhost:8080'
                 }
 
             }
+
         }
     }
 }

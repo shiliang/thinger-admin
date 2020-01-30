@@ -67,6 +67,13 @@ export default {
     func() {
       this.$router.replace('/home');
     },
+    handleOpen: function () {
+
+    },
+    handleClose: function () {
+
+    }
+
 
   }
 }

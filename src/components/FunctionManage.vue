@@ -18,8 +18,8 @@
                 prop="operator"
                 label="操作">
             <template slot-scope="scope">
-            <el-button type="success" @click="openFunc(scope.row.id)">启动</el-button>
-                <el-button type="warning" @click="closeFunc(scope.row.id)">关闭</el-button>
+            <el-button type="success" @click="openFunc(scope.row.name)">启动</el-button>
+                <el-button type="warning" @click="closeFunc(scope.row.name)">关闭</el-button>
             </template>
         </el-table-column>
     </el-table>
@@ -42,22 +42,30 @@ export default {
       openFunc: function (id) {
         console.log(id)
       },
-        closeFunc: function (id) {
-            console.log(id)
+        closeFunc: function (name) {
+            console.log(name)
+            axios.delete('/thingerboot/services?id=' + name)
+                .then(function (response) {
+                    console.log(response.data)
+                })
         }
     },
 
   mounted() {
       var that = this
+
       axios.get(
-        '/thinger/api/v1/faas/functions'
+        '/thingerboot/stats'
     ).then((response) => {
-        //console.log(response.data)
+        console.log(response.data)
         response.data.forEach(function (e) {
-            console.log(e.id)
+            var  st = "on"
+            if (e.worker_stats === undefined) {
+                st = "off"
+            }
             that.tableData.push({
-                functionname : e.id,
-                status: "on",
+                functionname : e.name,
+                status: st,
                 operator: "done"
             })
         })
